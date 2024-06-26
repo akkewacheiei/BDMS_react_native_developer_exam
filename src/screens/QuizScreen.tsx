@@ -39,7 +39,7 @@ const QuizScreen: React.FC<Props> = ({ navigation }) => {
 
   return (
     <View>
-      <Text>{currentQuestion.questionText}</Text>
+      <Text>{currentQuestionIndex + 1}. {currentQuestion.questionText}</Text>
       {currentQuestion.answers.map((answer, index) => (
         <Button
           key={index}
