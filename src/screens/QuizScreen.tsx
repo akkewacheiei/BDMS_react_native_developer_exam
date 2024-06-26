@@ -16,12 +16,19 @@ type Props = {
 
 const QuizScreen: React.FC<Props> = ({ navigation }) => {
   const dispatch = useDispatch();
-  const { questions, currentQuestionIndex, score } = useSelector((state: RootState) => state.quiz);
+  const { questions, currentQuestionIndex, score } = useSelector(
+    (state: RootState) => state.quiz,
+  );
 
   useEffect(() => {
-    const questions: Question[] = getRandomQuestions(20); // Replace with your random question logic
-    dispatch(setQuestions(questions));
+    const newQuestions: Question[] = getRandomQuestions(20);
+    dispatch(setQuestions(newQuestions));
   }, [dispatch]);
+
+  // Check if questions have loaded
+  if (!questions || questions.length === 0) {
+    return null; // or render a loading indicator
+  }
 
   if (currentQuestionIndex >= questions.length) {
     navigation.navigate('Leaderboard');
